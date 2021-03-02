@@ -29,5 +29,18 @@ class AuthServiceProvider extends ServiceProvider
         if (! $this->app->routesAreCached()) {
             Passport::routes();
         }
+
+        Gate::define('User', function($user) {
+            return $user->hasRole('user');
+        });
+
+        Gate::define('Admin', function($user) {
+            return $user->hasRole('admin');
+        });
+
+        Gate::define('SuperAdmin', function($user) {
+            return $user->hasRole('superadmin');
+        });
+
     }
 }
